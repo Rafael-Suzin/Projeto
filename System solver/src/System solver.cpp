@@ -3,6 +3,7 @@
 #include <vector>
 #include <string>
 
+using namespace Eigen;
 using namespace std;
 
 class SystemSolver {
@@ -11,12 +12,12 @@ public:
         introduction();
         input();
         printEquations();
-//        system_analize(); // precisa ser refeito, pois para sistema imposiveis retorna respostas, para aqueles com mais de uma resposta retorna uma errada
-        solve();
+        system_analize();
+//        solve();
         printSolution();
     }
 
-    SystemSolver(Eigen::MatrixXd& cof,Eigen::VectorXd& igual) {
+    SystemSolver(MatrixXd& cof,VectorXd& igual) {
         this->cof = cof;
         this->igual = igual;
         n_var = cof.cols();
@@ -24,11 +25,12 @@ public:
         var.resize(n_var, " ");
 //        char a = 'a'; //'a'=97
         for (int i = 97; (i-97) < n_var; i++) {
-            var[i-97] = std::string(1, i);
+            var[i-97] = string(1, i);
         }
         introduction();
         printEquations();
-        solve();
+        system_analize();
+//        solve();
         printSolution();
     }
 
@@ -36,22 +38,22 @@ public:
         solution = cof.colPivHouseholderQr().solve(igual);
     }
 
-    Eigen::VectorXd getSolution() {
+    VectorXd getSolution() {
         return solution;
     }
 
 private:
-    Eigen::MatrixXd cof; //matriz nxn// ainda não testei como fica matrizes não quadradas nisso
-    Eigen::VectorXd igual;
-    Eigen::VectorXd solution;
+    MatrixXd cof; //matriz nxm
+    VectorXd igual;
+    VectorXd solution;
 
     int n_var;
     int n_eq;
     vector<string> var;
 
     void introduction() {
-        cout << "System Solver 0.1\n";
-        cout << "Resolvendo um sistema linear simples\n";
+        cout << "System Solver 0.2\n";
+        cout << "Resolvendo um sistema linear\n";
     }
 
     void input() {
@@ -76,7 +78,25 @@ private:
             cin >> igual(i);
         }
     }
+    void system_analize() {
+//        cout << "Determinante: " << cof.determinant() << "\n";
 
+        if (n_var == n_eq) {
+            if (cof.determinant() != 0) {
+                cout << "O sistema é possível e determinado\n";
+                solve();
+            } else {
+                cout << "O sistema pode ser posivel, mas é indeterminado\n";
+//                cout << "Solução geral: ";
+                // Implementar uma lógica para lidar com sistemas indeterminados
+            }
+        } else if (n_var > 1 && n_eq == 1) {
+            cout << "O sistema possui variáveis livres, mas já está minimizado em apenas uma equação\n";
+        } else {
+            cout << "O sistema pode ou não ser possível, requer simplificação\n";
+            // Implementar lógica para simplificar o sistema se necessário
+        }
+    }
     void printEquations() {
         cout << "Sistema de Equações:\n";
         for (int i = 0; i < n_eq; i++) {
@@ -101,13 +121,13 @@ int main() {
 //    SystemSolver system1;
 
 //     Caso 2: Chame SystemSolver com matriz de coeficientes e vetor de constantes
-    Eigen::MatrixXd cof(2, 2);
-    Eigen::VectorXd igual(2);
-    cof << 2, 3, 6, 9;
-    igual << 5, 15;   //sistema posivel e indeterminado, solução geral = (x,(5-2x)/3), o programa retorna uma resposta errada
-
+    MatrixXd cof(2, 2);
+    VectorXd igual(2);
+    cof <<	2, 3,
+    		1, 1;
+    igual << 7, 3;   //sistema com solução = (2,1)
     SystemSolver system2(cof, igual);
-    Eigen::VectorXd solution2 = system2.getSolution();
+    VectorXd solution2 = system2.getSolution();
 
     cout << "Solução do sistema:\n";
     cout << "x = " << solution2(0) << "\n";
