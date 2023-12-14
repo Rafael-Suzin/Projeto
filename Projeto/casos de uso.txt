@@ -1,0 +1,23 @@
+Caso de Uso: Resolução de Sistema de Equações Lineares
+
+
+ 1   O usuário inicia o programa, que exibe uma interface gráfica.
+
+ 2   Inserção de Dados:
+    O usuário insere os dados do sistema de equações da interface. Isso inclui a matriz de coeficientes, o vetor de termos independentes e o vetor de variáveis de , modificando seus tamanhos conforme necessario.
+
+ 3   Configuração da Resolução:
+    Ao clicar no botão "OK" na interface, os dados inseridos são passados para uma classe que realiza a Interface, essa classe converte esses dados para formatos adequados para o solver.
+
+   4 Solução do Sistema:
+    atravez da classe Solver, o sistema é resolvido e a solução é obtida e armazenada.
+
+  5  Exibição da Solução na Interface Gráfica:
+    A solução e as variáveis  são passadas para uma  interface gráfica, que exibe o valor de cada variável.
+
+   6 Visualização da Solução:
+    O usuário visualiza a solução do sistema de equações na interface gráfica
+	
+7 Após a solução, o usuário pode editar os dados do sistema do sistema anteior para realizar ajustes conforme necessário.
+	
+	
