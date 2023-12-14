@@ -1,0 +1,14 @@
+a matriz esta transposta, as linhas e colunas estão trocadas
+
+matriz maiores 5x5 retornam valor 0 nas variaveis depois da quinta variavel
+
+existe uma analize feita sobre a matriz que não é aproveitada pela parte grafica
+
+O a entrada de mudar o tamanho é feia e desproporcional
+
+o titulo dos vetores string cairam, antes estavm no topo agora estão a esquerda
+
+O tamanho do Layout principal deve ser limitado
+
+o tamanho da entrada que muda o tamanho deve ser limitada em dois characteres, assim inpedindo matrizes maiores que 100x100 (o limite maximo alcançado foi 60x99, como o uso de memoria CPU em 100% e por algum motivo 4 executaveis) 
+
